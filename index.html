@@ -115,7 +115,7 @@
 
   <!-- Off-Canvas Menu (Mobile Only) -->
   <div id="off-canvas-menu"
-    class="sm:hidden off-canvas-menu fixed top-0 right-0 w-64 h-full bg-gray-900 shadow-lg z-50 p-6 flex flex-col items-start space-y-6 transform transition-transform duration-300 ease-in-out">
+    class="off-canvas-menu sm:hidden fixed top-0 right-0 w-64 h-full bg-gray-900 shadow-lg z-50 p-6 flex flex-col items-start space-y-6">
     <button id="close-btn" class="self-end text-white focus:outline-none">
       <i class="fas fa-times fa-lg"></i>
     </button>
@@ -130,14 +130,13 @@
   </div>
 
   <!-- Header with Animated Background -->
-  <div class="bg-gradient-custom text-white pt-24 pb-12 px-6  shadow-xl relative">
+  <div class="bg-gradient-custom text-white pt-24 pb-12 px-6 shadow-xl relative">
     <div
       class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center text-center sm:text-left relative z-10">
       <div class="flex items-center space-x-4 mb-4 sm:mb-0">
         <div
           class="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden border-4 border-yellow-300 shadow-lg">
-          <!-- <i class="fas fa-user text-5xl text-gray-500"></i> -->
-          <img src="hari-prof-img.png" alt="">
+          <i class="fas fa-user text-5xl text-gray-500"></i>
         </div>
         <div>
           <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-1">Hari Shankar K R</h1>
@@ -149,11 +148,12 @@
         <a href="mailto:harirj13@gmail.com" class="hover:underline flex items-center">
           <i class="fas fa-envelope mr-2 text-yellow-500"></i> harirj13@gmail.com
         </a>
-        <a href="#" class="hover:underline flex items-center">
+        <a target="_blank" href="tel:9344992516" class="hover:underline flex items-center">
           <i class="fas fa-phone mr-2 text-yellow-500"></i> 9344992516
         </a>
         <div class="flex space-x-3">
-          <a target="_blank" href="https://www.linkedin.com/in/hari-shankar-804256256?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+          <a target="_blank"
+            href="https://www.linkedin.com/in/hari-shankar-804256256?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
             class="text-white hover:text-yellow-500 transition-colors duration-200" title="LinkedIn">
             <i class="fab fa-linkedin fa-lg"></i>
           </a>
@@ -399,31 +399,41 @@
     </section>
   </main>
 
-  <!-- JavaScript for Mobile Menu & Smooth Scroll -->
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white text-center py-4 text-xs sm:text-sm mt-8">
+    <p id="copyright-text"></p>
+  </footer>
+
+  <!-- JavaScript for Mobile Menu, Smooth Scroll, and Dynamic Year -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const hamburgerBtn = document.getElementById('hamburger-btn');
       const closeBtn = document.getElementById('close-btn');
       const offCanvasMenu = document.getElementById('off-canvas-menu');
-      const navLinks = document.querySelectorAll('#off-canvas-menu a, .sm\\:flex a');
+      const navLinks = document.querySelectorAll('#off-canvas-menu a');
 
-      // Toggle off-canvas menu visibility
+      // Function to close the menu
+      const closeMenu = () => {
+        offCanvasMenu.classList.remove('open');
+      };
+
+      // Toggle off-canvas menu visibility with the hamburger button
       hamburgerBtn.addEventListener('click', () => {
         offCanvasMenu.classList.add('open');
       });
 
-      closeBtn.addEventListener('click', () => {
-        offCanvasMenu.classList.remove('open');
-      });
+      // Close menu with the close button
+      closeBtn.addEventListener('click', closeMenu);
 
       // Close menu when a link is clicked
       navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-          if (offCanvasMenu.classList.contains('open')) {
-            offCanvasMenu.classList.remove('open');
-          }
-        });
+        link.addEventListener('click', closeMenu);
       });
+
+      // Set the dynamic year for the copyright notice
+      const copyrightText = document.getElementById('copyright-text');
+      const currentYear = new Date().getFullYear();
+      copyrightText.innerHTML = `&copy; ${currentYear} Hari Shankar K R. All rights reserved.`;
     });
   </script>
 </body>
